@@ -1,0 +1,30 @@
+name: Merge rules daily
+
+on:
+  schedule:
+    # 每天 02:00 UTC 自动合并
+    - cron: '0 2 * * *'
+  workflow_dispatch: # 允许手动触发
+
+permissions:
+  contents: write
+
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Merge rule lists
+        run: python3 scripts/merge.py
+
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add AI-merged.list AI.arrs
+          git diff --staged --quiet || (git commit -m "chore: daily merge $(date -u +%F)" && git push)
