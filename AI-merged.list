@@ -2,7 +2,7 @@
 #
 # 来源:
 # - VPSDance/ai-proxy-rules (rules/loon/all.list, 全量 AI 服务聚合)
-# 生成日期: 2026-10-19
+# 生成日期: 2026-10-18
 
 # === DOMAIN-SUFFIX ===
 DOMAIN-SUFFIX,abtestvm-sg.bytedance.com

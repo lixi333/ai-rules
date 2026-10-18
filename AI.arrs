@@ -8,7 +8,7 @@
 # - https://cdn.jsdelivr.net/gh/VPSDance/ai-proxy-rules@main/rules/loon/all.list
 #
 # 导入后请手动把该规则集指向你的代理策略组。
-# 生成日期: 2026-10-19
+# 生成日期: 2026-10-18
 
 name = AI
 2, abtestvm-sg.bytedance.com
