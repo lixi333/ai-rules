@@ -1,10 +1,17 @@
 # ai-rules
 
-通用 AI 服务分流规则订阅（自动合并、每日更新）。
+精选 AI 服务分流规则订阅（自动合并、每日更新）。
 
 ## 规则来源
 
-- [VPSDance/ai-proxy-rules](https://github.com/VPSDance/ai-proxy-rules)（`rules/loon/all.list`，全量 AI 服务聚合：OpenAI、Anthropic、Google、DeepSeek、Cursor、Midjourney 等上百个 AI 服务）
+[VPSDance/ai-proxy-rules](https://github.com/VPSDance/ai-proxy-rules) 按服务精选的热门 AI 服务：
+OpenAI、Anthropic、Google、DeepSeek、Cursor、Copilot、Perplexity、
+Midjourney、Groq、Poe、OpenRouter、Mistral、Moonshot（Kimi）、Qwen（通义），
+另手动补充 Grok（VPSDance 未收录）。
+
+与 [muse-rules](https://github.com/lixi333/muse-rules) 重叠的 6 个 Meta AI 域名
+（`atmeta.com`、`llama.com`、`llamameta.net`、`meta.ai`、`metaaivm.com`、`muse.ai`）
+已剔除，两个规则集零重叠，可指向不同节点。
 
 GitHub Actions 每天 02:00 UTC 自动抓取、合并去重后提交，
 `AI-merged.list` 和 `AI.arrs` 永远是最新版。
