@@ -1,12 +1,18 @@
 #!/usr/bin/env python3
-"""Fetch, merge and dedupe the VPSDance all-AI-providers rule list.
+"""Fetch, merge and dedupe curated popular AI service rule lists.
 
-Source:
-  - VPSDance/ai-proxy-rules (rules/loon/all.list)
+Sources (VPSDance/ai-proxy-rules, per-service lists):
+  openai, anthropic, google-ai, deepseek, cursor, copilot, perplexity,
+  midjourney, groq, poe, openrouter, mistral-ai, moonshot-ai, alibaba-ai (Qwen)
+Plus manual Grok domains (VPSDance has no grok/xai list).
 
 Outputs (repo root):
   - AI-merged.list : Loon/Surge 通用格式
   - AI.arrs        : Anywhere 专用格式
+
+Excluded: 6 Meta AI domains that overlap with the muse-rules repo
+(atmeta.com, llama.com, llamameta.net, meta.ai, metaaivm.com, muse.ai)
+so the two rule sets can point to different nodes without ambiguity.
 
 Anywhere rule types: 0=IPv4 CIDR, 1=IPv6 CIDR, 2=domain suffix, 3=keyword.
 Anywhere has no exact-domain match, so DOMAIN entries are emitted as
@@ -17,23 +23,45 @@ import datetime
 import sys
 import urllib.request
 
-SOURCES = [
-    ("VPSDance/ai-proxy-rules",
-     "https://cdn.jsdelivr.net/gh/VPSDance/ai-proxy-rules@main/rules/loon/all.list"),
+BASE = "https://cdn.jsdelivr.net/gh/VPSDance/ai-proxy-rules@main/rules/loon"
+
+SERVICES = [
+    "openai",       # OpenAI / ChatGPT
+    "anthropic",    # Claude
+    "google-ai",    # Gemini
+    "deepseek",     # DeepSeek
+    "cursor",       # Cursor
+    "copilot",      # GitHub Copilot
+    "perplexity",   # Perplexity
+    "midjourney",   # Midjourney
+    "groq",         # Groq
+    "poe",          # Poe
+    "openrouter",   # OpenRouter
+    "mistral-ai",   # Mistral
+    "moonshot-ai",  # Moonshot / Kimi
+    "alibaba-ai",   # Qwen / 通义
 ]
+
+SOURCES = [
+    (f"VPSDance/{name}", f"{BASE}/{name}.list") for name in SERVICES
+]
+
+# Grok (xAI) has no VPSDance list; add manually.
+EXTRA_SUFFIXES = {"grok.com", "x.ai"}
+
+# Overlap with muse-rules repo; excluded here so the two sets are disjoint.
+EXCLUDE_DOMAINS = {
+    "atmeta.com",
+    "llama.com",
+    "llamameta.net",
+    "meta.ai",
+    "metaaivm.com",
+    "muse.ai",
+}
 
 OUTPUT_LIST = "AI-merged.list"
 OUTPUT_ARRS = "AI.arrs"
 ARRS_NAME = "AI"
-
-# Loon rule type -> Anywhere numeric type
-ARRS_TYPES = {
-    "DOMAIN-SUFFIX": 2,
-    "DOMAIN": 2,
-    "DOMAIN-KEYWORD": 3,
-    "IP-CIDR": 0,
-    "IP-CIDR6": 1,
-}
 
 
 def fetch(name, url):
@@ -86,10 +114,13 @@ def dedupe(suffixes, domains):
 
 def write_list(suffixes, domains, keywords, cidr4, cidr6, today):
     lines = [
-        "# 通用 AI 服务分流规则集 (自动生成, 每日更新)",
+        "# 精选 AI 服务分流规则集 (自动生成, 每日更新)",
         "#",
-        "# 来源:",
-        "# - VPSDance/ai-proxy-rules (rules/loon/all.list, 全量 AI 服务聚合)",
+        "# 来源: VPSDance/ai-proxy-rules 按服务精选",
+        "#   (openai, anthropic, google-ai, deepseek, cursor, copilot,",
+        "#    perplexity, midjourney, groq, poe, openrouter, mistral-ai,",
+        "#    moonshot-ai, alibaba-ai) + 手动补充 Grok",
+        "# 注: 与 muse-rules 重叠的 6 个 Meta AI 域名已剔除",
         f"# 生成日期: {today}",
         "",
         "# === DOMAIN-SUFFIX ===",
@@ -126,7 +157,7 @@ def write_arrs(suffixes, domains, keywords, cidr4, cidr6, skipped, today):
     lines = [
         f"# NAME: {ARRS_NAME}",
         "# GENERATED-FOR: Anywhere Routing Rule Set",
-        "# DESCRIPTION: 通用 AI 服务分流规则（Anywhere 专用，自动生成，每日更新）",
+        "# DESCRIPTION: 精选 AI 服务分流规则（Anywhere 专用，自动生成，每日更新）",
         f"# RULES: {len(rules)}",
         f"# SKIPPED: {skipped_total}",
     ]
@@ -136,7 +167,10 @@ def write_arrs(suffixes, domains, keywords, cidr4, cidr6, skipped, today):
     lines += [
         "# SOURCES:",
         *[f"# - {u}" for u in source_urls],
+        "# - manual: Grok (grok.com, x.ai)",
         "#",
+        "# 注: 与 muse-rules 重叠的 6 个 Meta AI 域名已剔除，",
+        "# 两个规则集可指向不同节点。",
         "# 导入后请手动把该规则集指向你的代理策略组。",
         f"# 生成日期: {today}",
         "",
@@ -167,12 +201,19 @@ def main():
         for t, n in sk.items():
             skipped_total[t] = skipped_total.get(t, 0) + n
 
+    # Manual additions
+    suffixes |= EXTRA_SUFFIXES
+
     if not (suffixes or domains or keywords or cidr4 or cidr6):
         print("ERROR: no rules fetched, refusing to write empty output",
               file=sys.stderr, flush=True)
         sys.exit(1)
 
     suffixes, domains = dedupe(suffixes, domains)
+
+    # Exclude overlap with muse-rules so the two sets are disjoint
+    suffixes = [s for s in suffixes if s not in EXCLUDE_DOMAINS]
+    domains = [d for d in domains if d not in EXCLUDE_DOMAINS]
 
     today = datetime.date.today().isoformat()
     write_list(suffixes, domains, keywords, cidr4, cidr6, today)
