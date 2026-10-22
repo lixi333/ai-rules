@@ -1,7 +1,7 @@
 # NAME: AI
 # GENERATED-FOR: Anywhere Routing Rule Set
 # DESCRIPTION: 精选 AI 服务分流规则（Anywhere 专用，自动生成，每日更新）
-# RULES: 182
+# RULES: 185
 # SKIPPED: 20
 # SKIPPED-TYPES: IP-ASN=3, PROCESS-NAME=17
 # SOURCES:
@@ -24,9 +24,10 @@
 # 注: 与 muse-rules 重叠的 6 个 Meta AI 域名已剔除，
 # 两个规则集可指向不同节点。
 # 导入后请手动把该规则集指向你的代理策略组。
-# 生成日期: 2026-10-21
+# 生成日期: 2026-10-22
 
 name = AI
+2, //github.com/aprilnea/reverse-engineering-claude-code-antspace
 2, ai.com
 2, ai.google.dev
 2, ai.studio
@@ -35,6 +36,7 @@ name = AI
 2, aisandbox-pa.googleapis.com
 2, aistudio.google.com
 2, algolia.net
+2, ant.dev
 2, anthropic.com
 2, anthropic.com.cn
 2, anthropic.team
@@ -60,6 +62,7 @@ name = AI
 2, claude.dev
 2, claude.new
 2, claude.site
+2, claudeacademy.com
 2, claudemcpclient.com
 2, claudemcpcontent.com
 2, claudepages.dev
