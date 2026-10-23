@@ -5,7 +5,7 @@
 #    perplexity, midjourney, groq, poe, openrouter, mistral-ai,
 #    moonshot-ai, alibaba-ai) + 手动补充 Grok
 # 注: 与 muse-rules 重叠的 6 个 Meta AI 域名已剔除
-# 生成日期: 2026-10-22
+# 生成日期: 2026-10-23
 
 # === DOMAIN-SUFFIX ===
 DOMAIN-SUFFIX,//github.com/aprilnea/reverse-engineering-claude-code-antspace
