@@ -1,7 +1,7 @@
 # NAME: AI
 # GENERATED-FOR: Anywhere Routing Rule Set
 # DESCRIPTION: 精选 AI 服务分流规则（Anywhere 专用，自动生成，每日更新）
-# RULES: 187
+# RULES: 188
 # SKIPPED: 20
 # SKIPPED-TYPES: IP-ASN=3, PROCESS-NAME=17
 # SOURCES:
@@ -24,7 +24,7 @@
 # 注: 与 muse-rules 重叠的 6 个 Meta AI 域名已剔除，
 # 两个规则集可指向不同节点。
 # 导入后请手动把该规则集指向你的代理策略组。
-# 生成日期: 2026-11-08
+# 生成日期: 2026-11-09
 
 name = AI
 2, ai.com
@@ -195,6 +195,7 @@ name = AI
 2, openaicomproductionae4b.blob.core.windows.net
 2, ppl-ai-file-upload.s3.amazonaws.com
 2, pplx-res.cloudinary.com
+2, production-copilot-host-westus.webpubsub.azure.com
 2, production-openaicom-storage.azureedge.net
 2, qodercn-jb.oss-cn-hangzhou.aliyuncs.com
 2, self.events.data.microsoft.com

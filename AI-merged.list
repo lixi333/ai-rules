@@ -5,7 +5,7 @@
 #    perplexity, midjourney, groq, poe, openrouter, mistral-ai,
 #    moonshot-ai, alibaba-ai) + 手动补充 Grok
 # 注: 与 muse-rules 重叠的 6 个 Meta AI 域名已剔除
-# 生成日期: 2026-11-08
+# 生成日期: 2026-11-09
 
 # === DOMAIN-SUFFIX ===
 DOMAIN-SUFFIX,ai.com
@@ -178,6 +178,7 @@ DOMAIN,openaicom-api-bdcpf8c6d2e9atf6.z01.azurefd.net
 DOMAIN,openaicomproductionae4b.blob.core.windows.net
 DOMAIN,ppl-ai-file-upload.s3.amazonaws.com
 DOMAIN,pplx-res.cloudinary.com
+DOMAIN,production-copilot-host-westus.webpubsub.azure.com
 DOMAIN,production-openaicom-storage.azureedge.net
 DOMAIN,qodercn-jb.oss-cn-hangzhou.aliyuncs.com
 DOMAIN,self.events.data.microsoft.com
