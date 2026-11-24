@@ -1,7 +1,7 @@
 # NAME: AI
 # GENERATED-FOR: Anywhere Routing Rule Set
 # DESCRIPTION: 精选 AI 服务分流规则（Anywhere 专用，自动生成，每日更新）
-# RULES: 188
+# RULES: 189
 # SKIPPED: 20
 # SKIPPED-TYPES: IP-ASN=3, PROCESS-NAME=17
 # SOURCES:
@@ -24,7 +24,7 @@
 # 注: 与 muse-rules 重叠的 6 个 Meta AI 域名已剔除，
 # 两个规则集可指向不同节点。
 # 导入后请手动把该规则集指向你的代理策略组。
-# 生成日期: 2026-11-23
+# 生成日期: 2026-11-24
 
 name = AI
 2, ai.com
@@ -87,6 +87,7 @@ name = AI
 2, gemini.google
 2, gemini.google.com
 2, gemini.gstatic.com
+2, gemma.ai
 2, generativeai.google
 2, generativelanguage.googleapis.com
 2, githubcopilot.com

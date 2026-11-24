@@ -5,7 +5,7 @@
 #    perplexity, midjourney, groq, poe, openrouter, mistral-ai,
 #    moonshot-ai, alibaba-ai) + 手动补充 Grok
 # 注: 与 muse-rules 重叠的 6 个 Meta AI 域名已剔除
-# 生成日期: 2026-11-23
+# 生成日期: 2026-11-24
 
 # === DOMAIN-SUFFIX ===
 DOMAIN-SUFFIX,ai.com
@@ -68,6 +68,7 @@ DOMAIN-SUFFIX,geller-pa.googleapis.com
 DOMAIN-SUFFIX,gemini.google
 DOMAIN-SUFFIX,gemini.google.com
 DOMAIN-SUFFIX,gemini.gstatic.com
+DOMAIN-SUFFIX,gemma.ai
 DOMAIN-SUFFIX,generativeai.google
 DOMAIN-SUFFIX,generativelanguage.googleapis.com
 DOMAIN-SUFFIX,githubcopilot.com
